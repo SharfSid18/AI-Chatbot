@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic to Urdu Translation Agent</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-language"></i>
+                    <h1>Arabic to Urdu Translation Agent</h1>
+                </div>
+                <div class="header-info">
+                    <span class="status-badge online">
+                        <i class="fas fa-circle"></i>
+                        Online
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Translation Interface -->
+            <div class="translation-container">
+                <div class="translation-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-exchange-alt"></i> Translation Interface</h2>
+                        <p>Professional Arabic to Urdu translation with advanced preprocessing</p>
+                    </div>
+                    
+                    <div class="translation-form">
+                        <!-- Input Section -->
+                        <div class="input-section">
+                            <div class="language-label">
+                                <i class="fas fa-font"></i>
+                                <span>Arabic Text</span>
+                            </div>
+                            <div class="text-area-container">
+                                <textarea 
+                                    id="arabicInput" 
+                                    placeholder="Enter Arabic text here..."
+                                    class="text-input arabic-text"
+                                    dir="rtl"
+                                ></textarea>
+                                <div class="text-controls">
+                                    <button class="control-btn" onclick="clearInput()" title="Clear text">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="control-btn" onclick="pasteText()" title="Paste text">
+                                        <i class="fas fa-paste"></i>
+                                    </button>
+                                    <span class="char-count" id="inputCharCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Translation Button -->
+                        <div class="translate-button-container">
+                            <button id="translateBtn" class="translate-btn" onclick="translateText()">
+                                <i class="fas fa-arrow-right"></i>
+                                <span>Translate to Urdu</span>
+                            </button>
+                            <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+
+                        <!-- Output Section -->
+                        <div class="output-section">
+                            <div class="language-label">
+                                <i class="fas fa-font"></i>
+                                <span>Urdu Translation</span>
+                            </div>
+                            <div class="text-area-container">
+                                <textarea 
+                                    id="urduOutput" 
+                                    placeholder="Translation will appear here..."
+                                    class="text-output urdu-text"
+                                    dir="rtl"
+                                    readonly
+                                ></textarea>
+                                <div class="text-controls">
+                                    <button class="control-btn" onclick="copyTranslation()" title="Copy translation">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="control-btn" onclick="clearOutput()" title="Clear translation">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <span class="char-count" id="outputCharCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Translation Details -->
+            <div class="details-container">
+                <div class="details-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-info-circle"></i> Translation Details</h3>
+                    </div>
+                    <div class="details-content" id="translationDetails">
+                        <div class="detail-item">
+                            <span class="detail-label">Engine Used:</span>
+                            <span class="detail-value" id="engineUsed">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Confidence:</span>
+                            <span class="detail-value" id="confidence">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Processing Time:</span>
+                            <span class="detail-value" id="processingTime">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Detected Language:</span>
+                            <span class="detail-value" id="detectedLanguage">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Examples -->
+            <div class="examples-container">
+                <div class="examples-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-lightbulb"></i> Quick Examples</h3>
+                    </div>
+                    <div class="examples-content">
+                        <div class="example-item" onclick="loadExample('مرحبا')">
+                            <span class="example-arabic">مرحبا</span>
+                            <span class="example-urdu">ہیلو</span>
+                        </div>
+                        <div class="example-item" onclick="loadExample('شكرا لك')">
+                            <span class="example-arabic">شكرا لك</span>
+                            <span class="example-urdu">آپ کا شکریہ</span>
+                        </div>
+                        <div class="example-item" onclick="loadExample('كيف حالك')">
+                            <span class="example-arabic">كيف حالك</span>
+                            <span class="example-urdu">آپ کیسے ہیں</span>
+                        </div>
+                        <div class="example-item" onclick="loadExample('أنا بخير')">
+                            <span class="example-arabic">أنا بخير</span>
+                            <span class="example-urdu">میں ٹھیک ہوں</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Arabic to Urdu Translation Agent. Professional AI-powered translation service.</p>
+                <div class="footer-links">
+                    <a href="/health" target="_blank">API Health</a>
+                    <span class="separator">|</span>
+                    <a href="#" onclick="showApiDocs()">API Documentation</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- API Documentation Modal -->
+    <div id="apiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-code"></i> API Documentation</h3>
+                <span class="close" onclick="closeApiModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>REST API Endpoint</h4>
+                <div class="code-block">
+                    <code>POST /api/translate</code>
+                </div>
+                
+                <h4>Request Body</h4>
+                <div class="code-block">
+                    <pre>{
+  "text": "مرحبا"
+}</pre>
+                </div>
+                
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+  "original_text": "مرحبا",
+  "translated_text": "ہیلو",
+  "confidence": 0.9,
+  "detected_language": "ar",
+  "processing_time_ms": 150
+}</pre>
+                </div>
+                
+                <h4>Example Usage</h4>
+                <div class="code-block">
+                    <pre>curl -X POST http://localhost:5000/api/translate \
+  -H "Content-Type: application/json" \
+  -d '{"text": "مرحبا"}'</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
