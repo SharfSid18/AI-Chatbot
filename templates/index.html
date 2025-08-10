@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic to Urdu Translation Agent</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-language"></i>
+                <h1>Arabic to Urdu Translation Agent</h1>
+            </div>
+            <p class="subtitle">Professional AI-powered translation service</p>
+        </header>
+
+        <main class="main-content">
+            <div class="translation-container">
+                <div class="input-section">
+                    <div class="language-label">
+                        <i class="fas fa-font"></i>
+                        <span>Arabic Text</span>
+                    </div>
+                    <div class="text-area-container">
+                        <textarea 
+                            id="arabicInput" 
+                            placeholder="Enter Arabic text here..."
+                            class="text-input"
+                            dir="rtl"
+                        ></textarea>
+                        <div class="text-controls">
+                            <button class="control-btn" onclick="clearInput()">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="control-btn" onclick="copyInput()">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="char-count">
+                        <span id="inputCharCount">0</span> characters
+                    </div>
+                </div>
+
+                <div class="translation-actions">
+                    <button id="translateBtn" class="translate-btn" onclick="translateText()">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Translate</span>
+                    </button>
+                    <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Translating...</span>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <div class="language-label">
+                        <i class="fas fa-font"></i>
+                        <span>Urdu Translation</span>
+                    </div>
+                    <div class="text-area-container">
+                        <textarea 
+                            id="urduOutput" 
+                            placeholder="Translation will appear here..."
+                            class="text-output"
+                            dir="rtl"
+                            readonly
+                        ></textarea>
+                        <div class="text-controls">
+                            <button class="control-btn" onclick="copyOutput()">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="control-btn" onclick="downloadTranslation()">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="char-count">
+                        <span id="outputCharCount">0</span> characters
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h3>Features</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-robot"></i>
+                        <h4>AI-Powered</h4>
+                        <p>Advanced machine learning algorithms for accurate translations</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Fast & Reliable</h4>
+                        <p>Quick translation with high accuracy and reliability</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Secure</h4>
+                        <p>Your text is processed securely and not stored</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Responsive</h4>
+                        <p>Works perfectly on desktop, tablet, and mobile devices</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-tips">
+                <h3>Usage Tips</h3>
+                <ul>
+                    <li>Enter clear, well-formatted Arabic text for best results</li>
+                    <li>For longer texts, consider breaking them into smaller paragraphs</li>
+                    <li>The translation preserves the original meaning and context</li>
+                    <li>Use the copy and download features to save your translations</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Arabic to Urdu Translation Agent. Powered by AI.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
